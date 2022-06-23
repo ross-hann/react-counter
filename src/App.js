@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react"
+import Nav from "./components/Nav"
+import Counter from "./components/Counter"
 
 function App() {
+   
+  const [thingsArray, setThingsArray] = useState(["Thing 1", "Thing 2"])
+  
+    function addItem() {
+      setThingsArray(prevThingsArray => {
+          return [...prevThingsArray, `Thing ${prevThingsArray.length + 1}`]
+      })
+    }   
+
+  const thingsElements = thingsArray.map(thing => <p key = {thing} > <li>{thing}</li> </p>)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className="App">
+        <Nav />
+        <Counter />
+      </div>
+
+      <div className="state">
+        <button className="counter--button" onClick={addItem}>Add a thing </button>
+      </div>
+
+      <ul className="counter--list"> 
+        {thingsElements}
+      </ul>
+    </>
+  )
 }
 
 export default App;
+
+
+
+ 
